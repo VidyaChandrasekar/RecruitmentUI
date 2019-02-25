@@ -1,0 +1,32 @@
+<h1 style="text-align: center">Candidate Data</h1>  
+
+<p *ngIf="!candidateList"><em>Loading...</em></p>  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<p *ngIf="!candidateList"><em>Loading...</em></p>  
+<p-dataTable *ngIf="candidateList" [value]="candidateList" [rows]="5" [paginator]="true" [rowsPerPageOptions]="[5,10]">
+  <p-header>
+    <div class="ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-plus" [routerLink]="['/candidate-detail']" style="float:right" label="Add"> </button>
+    </div>
+  </p-header>
+  <p-column field="id" header="Id" [sortable]="true" [filter]="true"></p-column>
+  <p-column field="name" header="Name" [sortable]="true" [filter]="true"></p-column>
+  <p-column field="phoneNumber" header="PhoneNumber" [sortable]="true"></p-column>
+  <p-column field="currentCtc" header="CurrentCTC" [sortable]="true"></p-column>
+  <p-column field="noticePeriod" header="Notice Period" [sortable]="true"></p-column>
+  <p-column field="role" header="Role" [sortable]="true" [filter]="true"></p-column>
+  <p-column field="status" header="Status" [sortable]="true"></p-column>
+  <p-column field="date" header="Date" [sortable]="true" [filter]="true"></p-column>
+  
+  <p-column styleClass="col-button" [style]="{'width':'75px','text-align':'center'}">
+    <ng-template let-candidate="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-edit" [routerLink]="['/candidate/edit/',candidate.id]" > </button>
+    </ng-template>
+  </p-column>
+  <p-column styleClass="col-button" [style]="{'width':'75px','text-align':'center'}">
+    <ng-template let-candidate="rowData" pTemplate="body">
+      <button type="button" pButton icon="fa fa-trash" (click)="delete(candidate.id)" ></button>
+    </ng-template>
+  </p-column>
+</p-dataTable>
+

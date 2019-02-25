@@ -1,0 +1,80 @@
+<h1>{{title}}</h1> 
+<hr />  
+<form [formGroup]="candidateForm" (ngSubmit)="save()" #formDir="ngForm" novalidate >  
+   
+    <div class="form-group row">  
+        <label class="control-label col-md-12">Name</label>  
+        <div class="col-md-4">  
+            <input class="form-control" type="text" formControlName="name" required>  
+        </div>  
+        <span class="text-danger" *ngIf="name.invalid && formDir.submitted">  
+            Name is required.  
+        </span>  
+    </div>  
+    <div class="form-group row">  
+        <label class=" control-label col-md-12">PhoneNumber</label>
+        <div class="col-md-4">  
+            <input class="form-control" type="text" formControlName="phoneNumber" required>  
+        </div>  
+        <span class="text-danger" *ngIf="phoneNumber.invalid && formDir.submitted">  
+            PhoneNumber is required.  
+        </span>  
+    </div>  
+    <div class="form-group row">  
+        <label class="control-label col-md-12" for="currentCtc">CurrentCTC</label>  
+        <div class="col-md-4">  
+            <input class="form-control" type="text" formControlName="currentCtc">  
+        </div>  
+        <span class="text-danger" *ngIf="currentCtc.invalid && formDir.submitted">  
+            CurrentCTC is required  
+        </span>  
+    </div>  
+    <div class="form-group row">  
+        <label class="control-label col-md-12" for="noticePeriod">Notice Period</label>  
+        <div class="col-md-4">  
+            <input class="form-control" type="text" formControlName="noticePeriod">  
+        </div>  
+        <span class="text-danger" *ngIf="noticePeriod.invalid && formDir.submitted">  
+            NoticePeriod is required  
+        </span>  
+    </div>  
+	
+	<div class="form-group row">  
+        <label class="control-label col-md-12" for="role">Role</label>  
+        <div class="col-md-4">  
+            <select class="form-control" data-val="true" formControlName="role">  
+                <option value="">-- Select Role --</option>  
+                <option value="SSE">SSE</option>  
+                <option value="TL">TL</option>  
+				<option value="ASE">ASE</option>
+				<option value="SE">SE</option>
+            </select>  
+        </div> 
+        <span class="text-danger" *ngIf="role.invalid && formDir.submitted">  
+            Role is required  
+        </span>  
+    </div>  
+    
+    <div class="form-group row">  
+        <label class="control-label col-md-12" for="status">Status</label>  
+        <div class="col-md-4">  
+            <select class="form-control" data-val="true" formControlName="status">  
+                
+                <option value="New">New</option>  
+                <option value="Accept">Accept</option>  
+				<option value="Reject">Reject</option>
+            </select>  
+        </div>   
+    </div> 
+    <div class="form-group row">  
+            <div class="ui-g-12 ui-md-4">
+               <label class="control-label col-md-12" for="date" >Date</label>  
+                   <input class="form-control" type="date"  formControlName="date">
+            </div>  
+        </div> 
+	<br> <br>
+    <div class="form-group">  
+        <button type="submit" pButton class="btn btn-default">Save</button>  
+        <button class="btn btn-default" pButton (click)="cancel()">Cancel</button>  
+    </div>  
+</form>  
