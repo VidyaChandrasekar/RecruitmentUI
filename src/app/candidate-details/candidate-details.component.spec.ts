@@ -38,41 +38,6 @@ addCandidateDetails: jasmine.createSpy('addCandidateDetails').and.returnValue(of
 
 describe('Candidate-Details Component', () => {
 
-  // beforeEach(async(() => {
-  //     TestBed.configureTestingModule({
-  //       imports:
-  //       [
-  //         BrowserAnimationsModule,
-  //         HttpClientModule,
-  //         FormsModule,
-  //         DataTableModule,
-  //         AppRoutingModule,
-  //         CalendarModule,
-  //         ReactiveFormsModule,
-  //         BrowserModule
-  //       ],
-  //       declarations: [CandidateDetailsComponent],
-  //       schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
-  //     }).overrideComponent(CandidateDetailsComponent, {
-  //       set: {
-  //         providers: [
-  //           { provide: CandidateService, useClass: CandidateServiceStub},
-  //           CandidateListComponent
-  //         ]
-  //       }
-  //   }).overrideComponent(CandidateListComponent, {
-  //     set: {
-  //       providers: [
-  //         CandidateService
-  //       ]
-  //     }
-  //   }).compileComponents()
-  //   .then(() => {
-  //     fixture = TestBed.createComponent(CandidateDetailsComponent);
-  //     comp = fixture.componentInstance;
-  //     dataStub = fixture.debugElement.injector.get(CandidateService, CandidateListComponent);
-  //     });
-  // }));
         beforeEach(() => {
           TestBed.configureTestingModule({
             imports: [
@@ -91,12 +56,6 @@ describe('Candidate-Details Component', () => {
                 comp = fixture.componentInstance;
                 comp.ngOnInit();
         });
-
-      // beforeEach(() => {
-      //   const candidate: CandidateDetails[] = candidateMockData[0];
-      //   comp.
-
-      // });
 
       it('form invalid when empty', () => {
         expect(comp.candidateForm.valid).toBeFalsy();
