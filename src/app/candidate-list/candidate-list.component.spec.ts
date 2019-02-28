@@ -14,6 +14,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import {CommonModule} from '@angular/common';
 import { CandidateListComponent } from './candidate-list.component';
+import { AppRoutingModule } from '../app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Injectable()
 class MockCandidateService extends CandidateService {
@@ -24,69 +26,80 @@ class MockCandidateService extends CandidateService {
   addCandidateDetails(candidateMockData): Observable<CandidateDetails> {
     return of(candidateMockData[0]);
   }
-  deleteCandidate(candidateMockData): Observable<CandidateDetails> {
+  delete(candidateMockData): Observable<CandidateDetails> {
     return of(candidateMockData[0]);
   }
 }
 
-
-describe('CandidateListComponent', () => {
-  let component: CandidateListComponent;
-  let fixture: ComponentFixture<CandidateListComponent>;
+describe('CandidateListComponent',
+() => {
+  let fixture;
+  let component;
   let dataStub: MockCandidateService;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ CandidateListComponent ],
+      declarations: [
+        CandidateListComponent
+      ],
       imports: [
-        BrowserModule,
-        HttpClientModule,
-        FormsModule,
-        NgModule,
-        RouterModule,
-        CommonModule,
-        ReactiveFormsModule
+          BrowserModule,
+          BrowserAnimationsModule,
+          HttpClientModule,
+          FormsModule,
+          AppRoutingModule
       ],
       providers: [
-        {provide: CandidateService, useClass: MockCandidateService},
-      ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
+        {provide: CandidateService, useClass: MockCandidateService}
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    }).compileComponents();
     fixture = TestBed.createComponent(CandidateListComponent);
     component = fixture.debugElement.componentInstance;
     dataStub = fixture.debugElement.injector.get(CandidateService);
-    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create',
+  () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create the app', async(() => {
-    fixture = TestBed.createComponent(CandidateListComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
+  it('should create the app',
+    async(() => {
+      fixture = TestBed.createComponent(CandidateListComponent);
+      const app = fixture.debugElement.componentInstance;
+      expect(app).toBeTruthy();
+    }));
 
-    it('Should have header',
-      () => {
-        fixture.detectChanges();
-        const header = fixture.debugElement.query(By.css('h1')).nativeElement;
-        expect(header).toBeTruthy();
+  it('should get candidate list',
+    async(() => {
+      const spyDetail = spyOn(dataStub, 'getCandidateDetails').and.returnValue(of(candidateMockData));
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(component.candidateList).toEqual(candidateMockData);
+      expect(spyDetail.calls.any()).toEqual(true);
+    }));
+
+  it('should get candidate from CandidateListConmponent',
+    async(() => {
+      fixture.detectChanges();
+      fixture.whenStable().then(() => {
+        expect(component.candidateList.length).toBe(1);
       });
+    }));
 
-    it('should delete candidate',
-      async(() => {
-        spyOn(component, 'delete');
+  it('Should have a p-table',
+  () => {
+    fixture.detectChanges();
+    const table = fixture.debugElement.query(By.css('p-dataTable')).nativeElement;
+    expect(table).toBeTruthy();
+  });
 
-        let button = fixture.debugElement.nativeElement.querySelector('button');
-        button.click();
-
-        fixture.whenStable().then(() => {
-          expect(button).toBeTruthy();
-        });
-      }));
+  it('Should have a header',
+  () => {
+    fixture.detectChanges();
+    const header = fixture.debugElement.query(By.css('p-header')).nativeElement;
+    expect(header).toBeTruthy();
+  });
 });
+
